@@ -1,7 +1,10 @@
 package com.herokuapp.agendatoday.Entities;
 
-import javax.persistence.*;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+@Component
 @Entity
 @Table(name = "agendatoday")
 public class User {

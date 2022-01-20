@@ -20,18 +20,9 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
-    private UserRepository userRepo;
-
-    private CustomUserDetailsService customUserDetailsService;
-
-    public SecurityConfiguration(UserRepository userRepo, CustomUserDetailsService customUserDetailsService) {
-        this.userRepo = userRepo;
-        this.customUserDetailsService = customUserDetailsService;
-    }
-
     @Bean
     public UserDetailsService userDetailsService(){
-        return new CustomUserDetailsService(userRepo);
+        return new CustomUserDetailsService();
     }
 
     @Bean
@@ -41,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(customUserDetailsService);
+        authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -60,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+             //   .loginPage("/login")
                 //.loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/list")
                 .failureUrl("/badlogin")
