@@ -8,10 +8,15 @@
 </head>
 
 <body style="background-color:powderblue">
-<br>
+
+<div> <form action="#" th:action="@{/logout}" method="POST">
+    <input  type="submit" value="Logout" class="btn btn-danger"/></form> </div>
+
 <div class="container text-center">
 
-    <h1>Welcome <span sec:authentication="name"></span>!</h1>
+    <h1>Welcome <span sec:authentication="name"></span>!
+
+    </h1>
 
 </div>
 

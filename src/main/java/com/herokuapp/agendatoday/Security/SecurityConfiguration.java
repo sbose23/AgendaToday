@@ -53,7 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/badlogin")
                 .and()
                 .logout()
-                //.logoutUrl("process_logout")
                 .logoutSuccessUrl("/");
     }
 
