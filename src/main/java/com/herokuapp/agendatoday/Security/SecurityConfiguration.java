@@ -12,15 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
 
     @Bean
     public UserDetailsService userDetailsService(){
@@ -40,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     //authentication
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -48,13 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/list/**").authenticated()
+                .antMatchers("/app/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 //.loginPage("/login")
-                //.loginProcessingUrl("/authenticate")
-                .defaultSuccessUrl("/list")
+                .loginProcessingUrl("/authenticate")
+                .defaultSuccessUrl("/app/list")
                 .failureUrl("/badlogin")
                 .and()
                 .logout()

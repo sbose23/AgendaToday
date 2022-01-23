@@ -14,16 +14,12 @@ public class CustomUserDetails implements UserDetails {
     private User myUser;
 
     public CustomUserDetails(User user){
-        System.out.println(user);
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
         this.myUser = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return new HashSet<GrantedAuthority>();
+        return null;
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.herokuapp.agendatoday.Entities.User;
 import com.herokuapp.agendatoday.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +22,7 @@ public class WebpageController {
     }
 
     @GetMapping("/login")
-    public String userLogin(Model mvcModel){
-        mvcModel.addAttribute("possibleUser", new User());
-        System.out.println("login controller");
+    public String userLogin(){
         return "Login/login";
     }
 
@@ -43,7 +40,6 @@ public class WebpageController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encodedPass = encoder.encode(modelUser.getPassword());
             modelUser.setPassword(encodedPass);
-            System.out.println("Password Encryption works?: " + BCrypt.checkpw("world", encodedPass));
             userRepo.save(modelUser);
         }
         //if user already exists
