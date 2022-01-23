@@ -22,7 +22,9 @@ public class WebpageController {
     }
 
     @GetMapping("/login")
-    public String userLogin(){
+    public String userLogin(Model mvcModel){
+        mvcModel.addAttribute("possibleUser", new User());
+        System.out.println("login controller");
         return "Login/login";
     }
 
@@ -36,7 +38,7 @@ public class WebpageController {
     @PostMapping("/process_registration")
     public String processRegistration(User modelUser){
         try{
-            //encrypt password because why not
+            //encrypt password
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String encodedPass = encoder.encode(modelUser.getUsername());
             modelUser.setPassword(encodedPass);

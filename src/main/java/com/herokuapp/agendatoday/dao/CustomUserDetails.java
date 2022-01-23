@@ -6,18 +6,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+
 @Service
 public class CustomUserDetails implements UserDetails {
 
     private User myUser;
 
     public CustomUserDetails(User user){
+        System.out.println(user);
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
         this.myUser = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        return new HashSet<GrantedAuthority>();
     }
 
     @Override

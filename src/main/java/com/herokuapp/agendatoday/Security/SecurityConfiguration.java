@@ -20,15 +20,14 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
+
     @Bean
     public UserDetailsService userDetailsService(){
         return new CustomUserDetailsService();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    public BCryptPasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder();}
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -41,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+        //auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     //authorization
@@ -51,8 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-             //   .loginPage("/login")
-                //.loginProcessingUrl("/process_login")
+                //.loginPage("/login")
+                //.loginProcessingUrl("/authenticate")
                 .defaultSuccessUrl("/list")
                 .failureUrl("/badlogin")
                 .and()
