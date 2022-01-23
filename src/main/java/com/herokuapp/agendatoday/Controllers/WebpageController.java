@@ -4,6 +4,7 @@ import com.herokuapp.agendatoday.Entities.User;
 import com.herokuapp.agendatoday.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +41,9 @@ public class WebpageController {
         try{
             //encrypt password
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            String encodedPass = encoder.encode(modelUser.getUsername());
+            String encodedPass = encoder.encode(modelUser.getPassword());
             modelUser.setPassword(encodedPass);
+            System.out.println("Password Encryption works?: " + BCrypt.checkpw("world", encodedPass));
             userRepo.save(modelUser);
         }
         //if user already exists

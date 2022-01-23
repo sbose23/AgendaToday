@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -28,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder();}
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -39,21 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.authenticationProvider(authenticationProvider());
-        //auth.jdbcAuthentication().dataSource(dataSource);
-        //auth.authenticationProvider(authenticationProvider());
-        //auth.jdbcAuthentication().dataSource(dataSource);
-        /*
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder())
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .jdbcAuthentication()
-                .dataSource(dataSource);*/
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, 1 from users where username=?")
-                .authoritiesByUsernameQuery("select username, 'ROLE_USER' from users where username=?")
-                .and()
-                .authenticationProvider(authenticationProvider());
+        auth.authenticationProvider(authenticationProvider());
     }
 
     //authorization
