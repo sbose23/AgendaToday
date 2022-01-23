@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 @Component
 @Entity
-@Table(name = "agendatoday")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
