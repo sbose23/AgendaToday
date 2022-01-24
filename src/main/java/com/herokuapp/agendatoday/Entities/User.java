@@ -4,6 +4,8 @@ package com.herokuapp.agendatoday.Entities;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Collection;
+
 @Component
 @Entity
 @Table(name = "users")
@@ -48,5 +50,16 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Tasks> tasks;
+
+    public Collection<Tasks> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Collection<Tasks> tasks) {
+        this.tasks = tasks;
     }
 }
