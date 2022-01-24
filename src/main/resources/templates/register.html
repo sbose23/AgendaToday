@@ -17,19 +17,20 @@
             <div class="form-group">
                 <label class="label col-20"
                        style="font-size:20px"><strong>Enter Username (between 1 and 10 letters):</strong></label>
-                <input type="text" class="form-control form-control-lg" maxlength="10" minlength="1"
-                       placeholder="Your username" required th:field="*{username}"/>
+                <input class="form-control form-control-lg" maxlength="10" minlength="1" placeholder="Your username"
+                       required th:field="*{username}" type="text"/>
                 <br><br>
                 <label class="label col-20" style="font-size:20px"><strong>Enter Password (between 5 and 15 letters):</strong></label>
-                <input type="text" class="form-control form-control-lg" maxlength="15" minlength="5"
-                       placeholder="Your password" required th:field="*{password}" />
+                <input class="form-control form-control-lg" maxlength="15" minlength="5" placeholder="Your password"
+                       required th:field="*{password}" type="text"/>
             </div>
             <br><br>
             <div class="container text-center">
                 <button type="submit" class="btn btn-success btn-lg">Sign Up!</button>
             </div>
+            <br>
+            <a th:href="@{/}" class="btn btn-link">Return to Homepage</a>
         </div>
     </form>
-
 </body>
 </html>
