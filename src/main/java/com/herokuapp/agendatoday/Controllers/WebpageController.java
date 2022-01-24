@@ -4,6 +4,9 @@ import com.herokuapp.agendatoday.Entities.User;
 import com.herokuapp.agendatoday.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +26,13 @@ public class WebpageController {
 
     @GetMapping("/login")
     public String userLogin(){
+        //if authenticated user exists redirect to app
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)){
+            return "redirect:app/list";
+        }
         return "Login/login";
     }
-
 
     @GetMapping("/register")
     public String userRegister(Model mvcModel){
