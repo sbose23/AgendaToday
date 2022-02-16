@@ -15,4 +15,4 @@ The schema is set up with two tables:
 Mapping:
 There is a OneToMany relationship from "users" to "tasks" and a ManyToOne relationship from "tasks" to "users".
 
-![Schema](https://imgur.com/0AVpImg)
+![Schema](https://imgur.com/0AVpImg.png)
