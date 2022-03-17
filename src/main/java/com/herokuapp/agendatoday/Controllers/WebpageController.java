@@ -41,7 +41,7 @@ public class WebpageController {
     }
 
     @PostMapping("/process_registration")
-    public String processRegistration(User modelUser, Model mvcModel){
+    public String processRegistration(User modelUser){
         try{
             //encrypt password
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -51,12 +51,13 @@ public class WebpageController {
         }
         //if user already exists
         catch (DataIntegrityViolationException e){
-            return "username_taken";
+            return "redirect:register?alreadyExists";
 
         }
+        //unknown error
         catch (Exception e) {
-            return "sign_up_error";
+            return "redirect:register?error";
         }
-        return "sign_up_success";
+        return "redirect:register?success";
     }
 }
