@@ -16,3 +16,8 @@ Mapping:
 There is a OneToMany relationship from "users" to "tasks" and a ManyToOne relationship from "tasks" to "users".
 
 ![Schema](https://imgur.com/0AVpImg.png)
+
+# API
+(Work in progress)
+A logged-in user may navigate to /api/tasks to find a list of their tasks in JSON format. 
+There is no support yet for external requests (such as from Postman) due to the lack of authorization. 
