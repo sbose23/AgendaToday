@@ -13,4 +13,5 @@ public interface TasksRepository extends JpaRepository<Tasks, Integer> {
 
     //find a task by its name
     Tasks findTasksByTaskEquals(String task);
+
 }

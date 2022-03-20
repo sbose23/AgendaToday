@@ -37,6 +37,12 @@ public class ListController {
         return userRepository.findByUsername(userName);
     }
 
+    //return true if task belongs to user
+    public boolean taskBelongsToUser(Tasks task){
+        User user = getLoggedInUser();
+        return user.getTasks().contains(task);
+    }
+
     @GetMapping()
     public String list(Model mvcModel){
 
@@ -61,7 +67,10 @@ public class ListController {
     //list operations
     @GetMapping("/delete")
     public String delete(@RequestParam("task") int taskID){
-
+        //if task does not belong to user return error
+        if (!(taskBelongsToUser(tasksRepository.getById(taskID)))) {
+            return "redirect:/app/list?deletionError";
+        }
         //delete from database with JPA
         tasksRepository.deleteById(taskID);
 
@@ -92,6 +101,11 @@ public class ListController {
 
         //retrieve task from data base
         Tasks task = tasksRepository.getById(taskID);
+
+        //if task does not belong to user return error
+        if (!(taskBelongsToUser(task))) {
+            return "redirect:/app/list?editError";
+        }
 
         //id needed in editTask
         mvcModel.addAttribute("taskId", taskID);
