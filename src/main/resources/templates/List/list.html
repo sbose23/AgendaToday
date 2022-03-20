@@ -15,8 +15,8 @@
 
 <div class="container text-center">
     <h3>Welcome <span sec:authentication="name" ></span>! Today is <span th:text="${date}"></span></h3>
-    <div th:if="${param.deletionError}" class="alert alert-danger">The task you tried to delete does not belong to you</div>
     <div th:if="${param.editError}" class="alert alert-danger">This task you tried to edit does not belong to you</div>
+    <div th:if="${param.deletionError}" class="alert alert-danger">The task you tried to delete does not belong to you</div>
 </div>
 <br>
 <div class="card text-center">
