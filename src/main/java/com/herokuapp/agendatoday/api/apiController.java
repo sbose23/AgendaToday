@@ -7,13 +7,12 @@ import com.herokuapp.agendatoday.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class apiController {
@@ -45,5 +44,24 @@ public class apiController {
             tasks.add(task.getTask());
         }
         return tasks;
+    }
+
+    @DeleteMapping("/deleteTask")
+    public String delete(@RequestParam("task") String task){
+
+        //retrieve logged-in user
+        User loggedInUser = getLoggedInUser();
+        String username = loggedInUser.getUsername();
+
+        //find task object by task name
+        Tasks taskToDelete = tasksRepository.findTasksByTaskEquals(task);
+
+        //if task object is not present in user's task return this response
+        if (!(loggedInUser.getTasks().contains(taskToDelete))) {
+            return "Task [" + task + "] is not in the tasks belonging to user [" + username + "]";
+        }
+        //else delete task and return success message
+        tasksRepository.delete(taskToDelete);
+        return "Deleted task [" + task + "] from the tasks belonging to user [" + username + "]";
     }
 }

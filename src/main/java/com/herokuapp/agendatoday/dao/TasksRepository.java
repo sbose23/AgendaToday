@@ -10,4 +10,7 @@ import java.util.List;
 public interface TasksRepository extends JpaRepository<Tasks, Integer> {
     //return list of tasks belonging to some user_id (foreign key)
     List<Tasks> findTasksByUser_id(int user_id);
+
+    //find a task by its name
+    Tasks findTasksByTaskEquals(String task);
 }
