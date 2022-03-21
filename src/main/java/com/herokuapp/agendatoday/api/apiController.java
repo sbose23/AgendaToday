@@ -46,8 +46,26 @@ public class apiController {
         return tasks;
     }
 
+    @PostMapping("/addTask")
+    public String addTask(@RequestParam("task") String task){
+        //retrieve logged-in user
+        User loggedInUser = getLoggedInUser();
+
+        //create new task
+        Tasks newTask = new Tasks();
+
+        //set details
+        newTask.setTask(task);
+        newTask.setUser(loggedInUser);
+
+        //save task
+        tasksRepository.save(newTask);
+
+        return "Added task [" + task + "] to tasks belonging to user [" + loggedInUser.getUsername() + "]";
+    }
+
     @DeleteMapping("/deleteTask")
-    public String delete(@RequestParam("task") String task){
+    public String deleteTask(@RequestParam("task") String task){
 
         //retrieve logged-in user
         User loggedInUser = getLoggedInUser();
