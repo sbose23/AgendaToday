@@ -10,7 +10,7 @@ Since this project uses the free version of Heroku, it may take up to 30 seconds
 1. User Sign Up
 2. User Login
 3. User Task Page (Add, Delete, Edit Task)
-4. API
+4. API (View Tasks, Add and Delete Task)
 
 # Database Schema
 The schema is set up with two tables: 
@@ -26,3 +26,5 @@ There is a OneToMany relationship from "users" to "tasks" and a ManyToOne relati
 # API
 The API for this project uses Spring REST and Basic Authentication with Spring Security (stateful due to sessions). A user that has signed up for AgendaToday will be able to make API calls for adding, deleting, and viewing their tasks.  
 For example, the command `curl -u username:password https://agendatoday.herokuapp.com/api/tasks` on command prompt or terminal would return a list of tasks belonging to user [ "username" ] and their password ["password].
+
+You can find the documentation for this API [here](https://documenter.getpostman.com/view/18990227/UVypxwW5)
